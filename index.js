@@ -41,20 +41,19 @@ class Resource extends AsyncResource {
 
   run(fn) {
     pool._register(this);
-    this.emitBefore();
-    const subroutine = Promise.resolve()
-      .then(() => fn())
-      .then(() => Promise.all(this[tasks]))
-      .then(() => null)
-      .catch(e => e)
-      .then(e => {
-        this.emitDestroy();
-        if (e) {
-          return Promise.reject(e);
-        }
+    return new Promise((resolve, reject) => {
+      this.runInAsyncScope(() => {
+        Promise.resolve()
+          .then(fn)
+          .then(() => Promise.all(this[tasks]))
+          .then(() => null)
+          .catch(e => e)
+          .then(e => {
+            this.emitDestroy();
+            e ? reject(e) : resolve();
+          });
       });
-    this.emitAfter();
-    return subroutine;
+    });
   }
 }
 

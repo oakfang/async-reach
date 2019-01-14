@@ -5,9 +5,13 @@ import proxyquire from "proxyquire";
 class MockAsyncResource {
   constructor(type) {
     this._type = type;
-    this.emitBefore = spy();
-    this.emitAfter = spy();
+    this.__runInAsyncScope = spy();
     this.emitDestroy = spy();
+  }
+
+  runInAsyncScope(fn) {
+    this.__runInAsyncScope();
+    fn();
   }
 
   asyncId() {
@@ -60,8 +64,7 @@ test("Running a session calls the right methods", async t => {
   const rsc = Resource.make();
   const main = async () => {
     t.is(registerSpy.callCount, 1);
-    t.is(rsc.emitBefore.calledOnce, true);
-    t.is(rsc.emitAfter.calledOnce, true);
+    t.is(rsc.__runInAsyncScope.calledOnce, true);
     t.is(rsc.emitDestroy.callCount, 0);
   };
   await rsc.run(main);

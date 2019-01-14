@@ -1,5 +1,5 @@
 {
-  "name": "shared-resource",
+  "name": "async-reach",
   "version": "1.0.0",
   "description": "Asynchronous resources shared across async callchain via async_hooks",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Seebo/shared-resource.git"
+    "url": "git+https://github.com/oakfang/async-reach.git"
   },
   "keywords": [
     "async",
@@ -18,22 +18,22 @@
     "context",
     "domain"
   ],
-  "author": "Seebo Interactive LTD",
+  "author": "Alon Niv",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Seebo/shared-resource/issues"
+    "url": "https://github.com/oakfang/async-reach/issues"
   },
-  "homepage": "https://github.com/Seebo/shared-resource#readme",
+  "homepage": "https://github.com/oakfang/async-reach#readme",
   "engines": {
-    "node": ">=8.1.0"
+    "node": ">=10.0.0"
   },
   "dependencies": {
     "uuid": "^3.1.0"
   },
   "devDependencies": {
     "ava": "^0.20.0",
-    "nyc": "^11.0.3",
+    "nyc": "^11.9.0",
     "proxyquire": "^1.8.0",
-    "sinon": "^2.3.7"
+    "sinon": "^2.4.1"
   }
 }
